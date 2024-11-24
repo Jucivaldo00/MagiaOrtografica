@@ -1,0 +1,51 @@
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    text-align: center;
+    background: url("t.png");
+    background-size: cover;
+}
+
+h1 {
+    color: rgb(228, 151, 63);
+    text-shadow: 0 0 50px rgb(74, 38, 172);
+}
+
+#board {
+    width: 570px;
+    height: 580px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    background: url(".");
+    background-size: cover;
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 25px;
+}
+
+.tile {
+    position: relative;
+    width: 170px;
+    height: 180px;
+    background-image: url("./d.png");
+    background-size: cover;
+    margin: 5px;
+    vertical-align: top;
+}
+
+.word-container {
+    position: absolute;
+    bottom: 110px; 
+    left: 15px;
+    right: 15px;
+    text-align: center;
+}
+.palavra-correta, .palavra-incorreta {
+    font-weight: bold;
+    color: rgb(42, 7, 107);
+    text-shadow: 0 0 5px rgba(36, 2, 92, 0.8);
+  }
+  #score {
+    color: white;
+}
