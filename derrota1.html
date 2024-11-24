@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Você Perdeu!</title>
+
+    <style>
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background-color: #0e0e0e;
+
+            background-image: url('56.jpg'); /* Substitua 'fundo.jpg' pelo caminho da sua imagem */
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            color: #ffffff;
+
+            overflow: hidden;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            height: 100vh;
+
+            position: relative;
+
+        }
+
+
+
+        .text {
+
+            text-align: center;
+
+            z-index: 1;
+
+            position: relative;
+
+            background-color: rgba(108, 181, 223, 0.7); /* Fundo quadrado com transparência */
+
+            padding: 20px; /* Adiciona espaçamento dentro do quadrado */
+
+            border-radius: 10px; /* Borda arredondada (opcional) */
+
+        }
+
+
+
+        .text h1 {
+
+            font-size: 80px;
+
+            letter-spacing: 5px;
+
+            margin: 0;
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+
+        .text p {
+
+            font-size: 24px;
+
+            color: #ffffff;
+
+            margin: 20px 0;
+
+        }
+
+
+
+        .continue-button, .restart-button {
+
+            padding: 15px 30px;
+
+            font-size: 18px;
+
+            background-color: transparent;
+
+            color: rgb(255, 255, 255);
+
+            border-radius: 50px;
+
+            cursor: pointer;
+
+            transition: background-color 0.3s, color 0.3s;
+
+            border: 2px solid rgb(58, 0, 134); /* Adiciona borda verde para combinar com a cor do texto */
+
+            margin: 10px; /* Adiciona espaçamento entre os botões */
+
+        }
+
+
+
+        .continue-button:hover, .restart-button:hover {
+
+            background-color: rgb(137, 47, 255);
+
+        }
+
+
+
+        .character {
+
+            position: absolute;
+
+            top: 35%; /* Ajuste o valor conforme necessário */
+
+            left: 87%; /* Ajuste o valor conforme necessário */
+
+            width: 300px; /* Ajuste o tamanho da personagem se necessário */
+
+            height: auto;
+
+            transform: translateX(-50%); /* Centraliza horizontalmente */
+
+            z-index: 1;
+
+        }
+
+
+
+        .play-sound-button {
+
+            padding: 15px 30px;
+
+            font-size: 22px;
+
+            background-color: rgb(119, 0, 255);
+
+            color: #fff;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            margin-top: 20px;
+
+            border: none;
+
+            transition: background-color 0.3s;
+
+        }
+
+
+
+        .play-sound-button:hover {
+
+            background-color: rgb(60, 0, 200);
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="text">
+
+        <h1>VOCÊ PERDEU!</h1>
+
+        <p>Que pena, parece que você não conseguiu completar essa fase</p>
+
+        <a href="fase2.html" class="restart-button">Recomeçar</a> <!-- Botão de Recomeçar -->
+
+        <button class="play-sound-button" onclick="playLaugh()">Aperte para uma surpresa</button>
+
+    </div>
+
+
+
+    <!-- Adiciona a personagem -->
+
+    <img src="5.png" alt="Character" class="character">
+
+
+
+    <!-- Adiciona o áudio da bruxa rindo -->
+
+    <audio id="witch-laugh">
+
+        <source src="risada.mp3" type="audio/mpeg">
+
+        <source src="risada.ogg" type="audio/ogg">
+
+        Seu navegador não suporta o elemento de áudio.
+
+    </audio>
+
+
+
+    <script>
+
+        function playLaugh() {
+
+            var audio = document.getElementById('witch-laugh');
+
+            audio.play();
+
+        }
+
+    </script>
+
+</body>
+
+</html>
