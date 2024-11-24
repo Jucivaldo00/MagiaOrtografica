@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fases</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('fases4.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .card {
+            width: 80px;
+            height: 120px;
+            overflow: hidden;
+            border-radius: 10px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .card.disabled {
+            background-color: gray;
+            cursor: not-allowed;
+            box-shadow: none;
+            filter: grayscale(100%);
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .card-number {
+            position: absolute;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .card.disabled .card-number {
+            color: lightgray;
+        }
+
+        .card:not(.disabled):hover {
+            transform: scale(1.05);
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fases</h1>
+        </header>
+        <main>
+            <div class="cards-container">
+                <!-- Card 1: Interativo -->
+                <a href="fase1.html" class="card">
+                    <span class="card-number">1</span>
+                    <img src="fases.jpg" alt="Fase 1">
+                </a>
+                <!-- Card 2: Interativo -->
+                <a href="fase2.html" class="card">
+                    <span class="card-number">2</span>
+                    <img src="fases1.jpg" alt="Fase 2">
+                </a>
+                <!-- Card 3: Interativo -->
+                <a href="fase3.html" class="card">
+                    <span class="card-number">3</span>
+                    <img src="fases2.jpg" alt="Fase 3">
+                </a>
+                <!-- Card 4: Desativado -->
+                <div class="card disabled">
+                    <span class="card-number">4</span>
+                    <img src="fases3.jpg" alt="Fase 4">
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
