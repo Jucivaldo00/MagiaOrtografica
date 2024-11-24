@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parabéns - Você Conquistou o Jogo!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #1e0f3f, #5d2179);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .text-content {
+            max-width: 600px;
+        }
+
+        .text-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffdf00;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        .text-content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .text-content p strong {
+            color: #ff7f50;
+        }
+
+        .bruxa {
+            width: 350px;
+            animation: shake 1.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            50% { transform: rotate(-2deg); }
+            75% { transform: rotate(1deg); }
+        }
+
+        button {
+            background-color: #ff5722;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 3px #000;
+        }
+
+        button:hover {
+            background-color: #e64a19;
+            transform: scale(1.1);
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: #ddd;
+        }
+
+        .footer a {
+            color: #ffdf00;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="IMG_9124.png" alt="Bruxa Brava" class="bruxa">
+        <div class="text-content">
+            <h1>Você Conseguiu!</h1>
+            <p>
+                <strong>Parabéns!</strong> Contra todas as dificuldades, você mostrou que é muito esperto e conseguiu vencer todas as fases!  
+            </p>
+            <p>
+            <strong>Hmmph!</strong> Mas, entre nós, acho que foi pura sorte...  
+            Que tal tentar de novo e treinar ainda mais suas habilidades de ortografia?
+            
+            </p>
+            <button onclick="window.location.href='index.html'">Voltar ao Início</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 - Magia Ortográfica. 
+    </div>
+</body>
+</html>
