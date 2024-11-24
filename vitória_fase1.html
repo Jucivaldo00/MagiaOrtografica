@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parabéns - Você Conquistou o Jogo!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #1e0f3f, #5d2179);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .text-content {
+            max-width: 600px;
+            position: relative;
+        }
+
+        .text-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ffdf00;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        .text-content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .text-content p strong {
+            color: #ff7f50;
+        }
+
+        .bruxa {
+            width: 350px;
+            animation: shake 1.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(2deg); }
+            50% { transform: rotate(-2deg); }
+            75% { transform: rotate(1deg); }
+        }
+
+        .esqueleto {
+            position: relative;
+            width: 150px;
+            margin-left: 20px;
+            animation: push 1.5s infinite;
+        }
+
+        @keyframes push {
+            0%, 10% { transform: translateX(0); }
+            50% { transform: translateX(-10px); }
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 3px #000;
+            position: relative;
+        }
+
+        button:hover {
+            background-color: #43a047;
+            transform: scale(1.1);
+        }
+
+        .teia {
+            position: absolute;
+            width: 100px;
+        }
+
+        .teia.teia-superior {
+            top: 0;
+            left: 0;
+        }
+
+        .teia.teia-inferior {
+            bottom: 0;
+            right: 0;
+        }
+
+        .morcego {
+            position: absolute;
+            width: 50px;
+            animation: fly 3s infinite ease-in-out;
+        }
+
+        .morcego:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .morcego:nth-child(2) {
+            top: 30%;
+            right: 20%;
+            animation-delay: 0.5s;
+        }
+
+        .morcego:nth-child(3) {
+            top: 10%;
+            left: 50%;
+            animation-delay: 1s;
+        }
+
+        .morcego:nth-child(4) {
+            top: 40%;
+            right: 30%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes fly {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Teias -->
+    <img src="teia1.png" alt="Teia de Aranha" class="teia teia-superior">
+    <img src="teia.png" alt="Teia de Aranha" class="teia teia-inferior">
+
+    <!-- Morcegos -->
+    <img src="morcego.png" alt="Morcego" class="morcego">
+    <img src="morcego.png" alt="Morcego" class="morcego">
+    <img src="morcego.png" alt="Morcego" class="morcego">
+    <img src="morcego.png" alt="Morcego" class="morcego">
+
+    <!-- Conteúdo -->
+    <div class="container">
+        <div class="text-content">
+            <h1>Parabéns! 🎉</h1>
+            <p>
+                Você passou por essa fase com sucesso! Continue avançando e mostrando sua habilidade.
+                Estamos torcendo por você em cada etapa!
+            </p>
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <button onclick="window.location.href='fases1.html'">Continuar</button>
+                <img src="esqueleto.png" alt="Esqueleto" class="esqueleto">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
