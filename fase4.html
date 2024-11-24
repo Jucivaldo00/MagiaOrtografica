@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="fase4.css" media="screen">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Jogo da Forca</title>
+    <style>
+        #start-music-button,
+        .review_btn {
+            background-color: #C8A2C8; /* Roxo */
+            color: rgb(0, 0, 0);
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            position: fixed;
+            left: 20px;
+        }
+
+        #start-music-button {
+            bottom: 70px;
+        }
+
+        .review_btn {
+            bottom: 20px;
+        }
+
+        #start-music-button:hover,
+        .review_btn:hover {
+            background-color: #8a2be2;
+        }
+
+        #imagem {
+            height: 300px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .teclas button {
+            margin: 5px;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+
+        .teclas button:hover {
+            background-color: #e2e6ea;
+        }
+
+        .letras {
+            display: inline-block;
+            width: 30px;
+            height: 40px;
+            margin: 5px;
+            border-bottom: 2px solid black;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .letrasEspaco {
+            display: inline-block;
+            width: 30px;
+            height: 40px;
+            margin: 5px;
+            text-align: center;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="imagem"></div>
+        <div id="palavra-secreta"></div>
+        <div id="teclado">
+            <div class="teclas"></div>
+        </div>
+        <div id="categoria"></div>
+        <div id="status">Rodadas: <span id="rodadas">1</span>/4</div>
+        <button id="start-music-button" onclick="startBackgroundMusic()">Iniciar Música</button>
+        <audio id="background-music" loop>
+            <source src="allow-win-161689.mp3" type="audio/mpeg">
+            Seu navegador não suporta áudio HTML5.
+        </audio>
+        <button class="review_btn" onclick="window.location.href='revisao4.html'">Revisão</button>
+    </div>
+
+    <script>
+        let tentativas = 6;
+        let listaDinamica = [];
+        let palavraSecretaCategoria;
+        let palavraSecretaSorteada;
+        let palavras = [];
+        let rodadaAtual = 1;
+
+        carregarPalavras();
+        sortearNovaPalavra();
+
+        function carregarPalavras() {
+            palavras = [
+                { nome: "MARCA-PASSO", categoria: "Dica: Dispositivo que regula os batimentos cardíacos." },
+                { nome: "OBRA-PRIMA", categoria: "Dica: Representa o auge da habilidade e criatividade de um artista." },
+                { nome: "BEM-QUERER", categoria: "Dica: Sentimento de carinho ou afeto por alguém." },
+                { nome: "PERFEIÇÃO", categoria: "Dica: Ausência de defeitos ou erros." },
+                { nome: "CAFEZINHO", categoria: "Dica: Bebida feita a partir de café moído." }, 
+                { nome: "PANCADA", categoria: "Dica: Golpe ou impacto forte." },
+                { nome: "CAÇADOR", categoria: "Dica: Pessoa que caça animais." },
+                { nome: "PÃO-CASEIRO", categoria: "Dica: Pão feito em casa." }
+            ];
+        }
+
+        function sortearNovaPalavra() {
+            const indexPalavra = Math.floor(Math.random() * palavras.length);
+            palavraSecretaSorteada = palavras[indexPalavra].nome;
+            palavraSecretaCategoria = palavras[indexPalavra].categoria;
+            listaDinamica = Array(palavraSecretaSorteada.length).fill("&nbsp;");
+            tentativas = 6;
+
+            montarPalavraNaTela();
+            criarTeclado();
+            atualizarImagem();
+        }
+
+        function atualizarImagem() {
+            const imagens = [
+                "forca.png",
+                "forca01.png",
+                "forca02.png",
+                "forca03.png",
+                "forca04.png",
+                "forca05.png",
+                "forca06.png",
+            ];
+            document.getElementById("imagem").style.backgroundImage = `url('${imagens[6 - tentativas]}')`;
+        }
+
+        function montarPalavraNaTela() {
+            document.getElementById("categoria").innerHTML = palavraSecretaCategoria;
+            const palavraTela = document.getElementById("palavra-secreta");
+            palavraTela.innerHTML = listaDinamica
+                .map((letra, i) => `<div class="${palavraSecretaSorteada[i] === " " ? "letrasEspaco" : "letras"}">${letra}</div>`)
+                .join("");
+        }
+
+        function criarTeclado() {
+            const tecladoDiv = document.querySelector("#teclado .teclas");
+            tecladoDiv.innerHTML = "ABCDEFGHIJKLMNOPQRSTUVWXYZÇÃ-"
+                .split("")
+                .map((letra) => `<button id="tecla-${letra}" onclick="verificaLetra('${letra}')">${letra}</button>`)
+                .join("");
+        }
+
+        function verificaLetra(letra) {
+            const tecla = document.getElementById(`tecla-${letra}`);
+            tecla.disabled = true;
+
+            if (palavraSecretaSorteada.includes(letra)) {
+                palavraSecretaSorteada.split("").forEach((char, i) => {
+                    if (char === letra) listaDinamica[i] = letra;
+                });
+                tecla.style.backgroundColor = "green";
+            } else {
+                tentativas--;
+                atualizarImagem();
+                tecla.style.backgroundColor = "red";
+            }
+
+            verificarFimDeJogo();
+            montarPalavraNaTela();
+        }
+
+        function verificarFimDeJogo() {
+            if (listaDinamica.join("") === palavraSecretaSorteada) {
+                rodadaAtual++;
+                atualizarRodadas();
+                if (rodadaAtual > 4) {
+                    setTimeout(() => (window.location.href = "vitória.html"), 2000);
+                } else {
+                    setTimeout(sortearNovaPalavra, 2000);
+                }
+            } else if (tentativas <= 0) {
+                setTimeout(() => (window.location.href = "derrota.html"), 2000);
+            }
+        }
+
+        function atualizarRodadas() {
+            document.getElementById("rodadas").textContent = rodadaAtual;
+        }
+
+        function startBackgroundMusic() {
+            const music = document.getElementById("background-music");
+            music.play();
+        }
+    </script>
+</body>
+</html>
