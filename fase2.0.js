@@ -148,7 +148,7 @@ let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
 function showResult() {
     // Se o quiz acabar, verificar se há vitória ou derrota
     if (userScore === 15) {
-        window.location.href = "vitoria_fase2.html";
+        window.location.href = "vitória_fase2.html";
     } else {
         window.location.href = "derrota1.html";
     }
