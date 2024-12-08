@@ -199,7 +199,7 @@ function setupButtons() {
   document.body.appendChild(buttonContainer);
 
   const reviewButton = createButton("Revisão", () => {
-    window.location.href = "revisao.html"; // Redireciona para revisao.html
+    window.location.href = "revisao1.html"; // Redireciona para revisao.html
   }, "#C8A2C8");
 
   const startButton = createButton("Iniciar Jogo", resetGame, "#4CAF50", "#FFF");
