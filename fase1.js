@@ -250,7 +250,7 @@ function createMusicButton(text, onClick, backgroundColor, color = "#000") {
 
 function playMusic() {
   if (!audio) {
-    audio = new Audio("musica.mp3"); // Substitua "sua-musica.mp3" pelo caminho do seu arquivo de áudio
+    audio = new Audio("1.mp3"); // Substitua "sua-musica.mp3" pelo caminho do seu arquivo de áudio
   }
   audio.play();
 }
