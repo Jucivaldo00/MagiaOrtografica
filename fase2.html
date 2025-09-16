@@ -137,23 +137,9 @@
 
     <!-- Script para lidar com o Quiz -->
     <script src="fase2.js"></script>
-    <script>
-        // Esta função será chamada quando o usuário errar uma pergunta
-        function showResult(isCorrect) {
-            if (!isCorrect) {
-                // Redireciona imediatamente para a página de derrota
-                window.location.href = "derrota2.html";
-                return;
-            }
-            
-            // Se acertou, continua com a lógica normal do quiz
-            // ... (código original do quiz)
-        }
+    <script src="fase2.0.js"></script>
 
-        // Modifique a função que verifica as respostas no seu fase2.js
-        // para chamar showResult(false) quando a resposta estiver errada
-    </script>
-
+    <!-- Script para gerenciar a música -->
     <script>
         const music = document.getElementById('background-music');
         let isPlaying = false;
@@ -166,11 +152,6 @@
                 music.play();
                 isPlaying = true;
             }
-        }
-        
-        // Função para ir para a próxima fase (vitória)
-        function goToNextPhase() {
-            window.location.href = "vitoria.html";
         }
     </script>
 </body>
