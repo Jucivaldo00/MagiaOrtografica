@@ -55,6 +55,9 @@
             border-radius: 8px;
             font-weight: bold;
         }
+        
+        /* Estilos para o quiz */
+        /* Importante: Mantenha os estilos do seu fase2.css */
     </style>
 </head>
 
@@ -135,9 +138,247 @@
     <!-- Botão de Revisão -->
     <button class="review_btn" onclick="window.location.href='revisao2.html'">Revisão</button>
 
-    <!-- Script para lidar com o Quiz -->
-    <script src="fase2.js"></script>
-    <script src="fase2.0.js"></script>
+    <!-- Script para lidar com o Quiz - Substitui os arquivos externos -->
+    <script>
+        // Variáveis e seletores
+        const start_btn = document.querySelector(".start_btn button");
+        const info_box = document.querySelector(".info_box");
+        const exit_btn = info_box.querySelector(".buttons .quit");
+        const continue_btn = info_box.querySelector(".buttons .restart");
+        const quiz_box = document.querySelector(".quiz_box");
+        const result_box = document.querySelector(".result_box");
+        const option_list = document.querySelector(".option_list");
+        const time_line = document.querySelector("header .time_line");
+        const timeText = document.querySelector(".timer .time_left_txt");
+        const timeCount = document.querySelector(".timer .timer_sec");
+        
+        // Se variáveis de perguntas não estiverem definidas, defina-as
+        if (typeof questions === 'undefined') {
+            var questions = [
+                {
+                    question: "Qual é a grafia correta?",
+                    options: ["Execção", "Exceção", "Excesão", "Excessão"],
+                    answer: "Exceção"
+                },
+                // Adicione mais perguntas aqui...
+            ];
+        }
+        
+        if (typeof que_count === 'undefined') {
+            var que_count = 0;
+            var que_numb = 1;
+            var userScore = 0;
+            var counter;
+            var counterLine;
+            var widthValue = 0;
+        }
+        
+        // Se start_btn existir, adicionar evento de clique
+        if (start_btn) {
+            start_btn.onclick = () => {
+                info_box.classList.add("activeInfo");
+            }
+        }
+        
+        // Se exit_btn existir, adicionar evento de clique
+        if (exit_btn) {
+            exit_btn.onclick = () => {
+                info_box.classList.remove("activeInfo");
+            }
+        }
+        
+        // Se continue_btn existir, adicionar evento de clique
+        if (continue_btn) {
+            continue_btn.onclick = () => {
+                info_box.classList.remove("activeInfo");
+                quiz_box.classList.add("activeQuiz");
+                showQuetions(0);
+                queCounter(1);
+                startTimer(15);
+                startTimerLine(0);
+            }
+        }
+        
+        // Função para mostrar perguntas
+        function showQuetions(index) {
+            const que_text = document.querySelector(".que_text");
+            
+            let que_tag = '<span>' + questions[index].question + '</span>';
+            let option_tag = '';
+            
+            for (let i = 0; i < questions[index].options.length; i++) {
+                option_tag += '<div class="option" onclick="optionSelected(this)"><span>' + questions[index].options[i] + '</span></div>';
+            }
+            
+            que_text.innerHTML = que_tag;
+            option_list.innerHTML = option_tag;
+            
+            const total_que = document.querySelector(".total_que");
+            total_que.innerHTML = '<p>' + (index + 1) + ' de ' + questions.length + ' perguntas</p>';
+        }
+        
+        // Função quando uma opção é selecionada
+        function optionSelected(answer) {
+            clearInterval(counter);
+            clearInterval(counterLine);
+            
+            let userAns = answer.textContent;
+            let correcAns = questions[que_count].answer;
+            const allOptions = option_list.children.length;
+            
+            if (userAns == correcAns) {
+                // Resposta correta
+                userScore++;
+                answer.classList.add("correct");
+            } else {
+                // Resposta errada - REDIRECIONAR PARA DERROTA
+                answer.classList.add("incorrect");
+                
+                // Destacar a resposta correta
+                for (let i = 0; i < allOptions; i++) {
+                    if (option_list.children[i].textContent == correcAns) {
+                        option_list.children[i].classList.add("correct");
+                    }
+                }
+                
+                // Redirecionar para a página de derrota após 1 segundo
+                setTimeout(() => {
+                    window.location.href = "derrota2.html";
+                }, 1000);
+                return;
+            }
+            
+            // Desativar todas as opções
+            for (let i = 0; i < allOptions; i++) {
+                option_list.children[i].classList.add("disabled");
+            }
+            
+            // Mostrar próximo botão
+            const next_btn = document.querySelector(".next_btn");
+            next_btn.classList.add("show");
+        }
+        
+        // Função para próximo botão
+        function nextQuestion() {
+            if (que_count < questions.length - 1) {
+                que_count++;
+                que_numb++;
+                showQuetions(que_count);
+                queCounter(que_numb);
+                clearInterval(counter);
+                clearInterval(counterLine);
+                startTimer(15);
+                startTimerLine(0);
+                
+                const next_btn = document.querySelector(".next_btn");
+                next_btn.classList.remove("show");
+            } else {
+                clearInterval(counter);
+                clearInterval(counterLine);
+                showResult();
+            }
+        }
+        
+        // Função para mostrar resultado
+        function showResult() {
+            info_box.classList.remove("activeInfo");
+            quiz_box.classList.remove("activeQuiz");
+            result_box.classList.add("activeResult");
+            
+            const scoreText = result_box.querySelector(".score_text");
+            
+            if (userScore == questions.length) {
+                // Todas as respostas corretas - REDIRECIONAR PARA VITÓRIA
+                setTimeout(() => {
+                    window.location.href = "vitoria.html";
+                }, 2000);
+            } else {
+                let scoreTag = '<span>Você acertou ' + userScore + ' de ' + questions.length + ' perguntas</span>';
+                scoreText.innerHTML = scoreTag;
+            }
+        }
+        
+        // Inicializar o quiz quando a página carregar
+        window.onload = function() {
+            const next_btn = document.querySelector(".next_btn");
+            const restart_quiz = result_box.querySelector(".buttons .restart");
+            const quit_quiz = result_box.querySelector(".buttons .quit");
+            
+            if (next_btn) {
+                next_btn.onclick = () => {
+                    nextQuestion();
+                }
+            }
+            
+            if (restart_quiz) {
+                restart_quiz.onclick = () => {
+                    quiz_box.classList.add("activeQuiz");
+                    result_box.classList.remove("activeResult");
+                    que_count = 0;
+                    que_numb = 1;
+                    userScore = 0;
+                    showQuetions(que_count);
+                    queCounter(que_numb);
+                    clearInterval(counter);
+                    clearInterval(counterLine);
+                    startTimer(15);
+                    startTimerLine(0);
+                    
+                    const next_btn = document.querySelector(".next_btn");
+                    next_btn.classList.remove("show");
+                }
+            }
+            
+            if (quit_quiz) {
+                quit_quiz.onclick = () => {
+                    window.location.reload();
+                }
+            }
+        }
+        
+        // Funções auxiliares (timer, etc.)
+        function startTimer(time) {
+            counter = setInterval(timer, 1000);
+            function timer() {
+                timeCount.textContent = time;
+                time--;
+                if (time < 0) {
+                    clearInterval(counter);
+                    timeText.textContent = "Tempo Esgotado";
+                    
+                    const allOptions = option_list.children.length;
+                    let correcAns = questions[que_count].answer;
+                    
+                    for (let i = 0; i < allOptions; i++) {
+                        if (option_list.children[i].textContent == correcAns) {
+                            option_list.children[i].classList.add("correct");
+                        }
+                    }
+                    
+                    // Tempo esgotado - REDIRECIONAR PARA DERROTA
+                    setTimeout(() => {
+                        window.location.href = "derrota2.html";
+                    }, 1000);
+                }
+            }
+        }
+        
+        function startTimerLine(time) {
+            counterLine = setInterval(timer, 29);
+            function timer() {
+                time += 1;
+                time_line.style.width = time + "px";
+                if (time > 549) {
+                    clearInterval(counterLine);
+                }
+            }
+        }
+        
+        function queCounter(index) {
+            const total_que = document.querySelector(".total_que");
+            total_que.innerHTML = '<p>' + index + ' de ' + questions.length + ' perguntas</p>';
+        }
+    </script>
 
     <!-- Script para gerenciar a música -->
     <script>
@@ -152,6 +393,11 @@
                 music.play();
                 isPlaying = true;
             }
+        }
+        
+        // Função para ir para a próxima fase (vitória)
+        function goToNextPhase() {
+            window.location.href = "vitoria.html";
         }
     </script>
 </body>
