@@ -11,7 +11,7 @@
     <style>
         #start-music-button,
         .review_btn {
-            background-color: #C8A2C8; /* Roxo */
+            background-color: #C8A2C8;
             color: rgb(0, 0, 0);
             border: none;
             padding: 10px 20px;
@@ -93,11 +93,13 @@
     </div>
 
     <script>
+        const TOTAL_RODADAS = 4;
         let tentativas = 6;
         let listaDinamica = [];
         let palavraSecretaCategoria;
         let palavraSecretaSorteada;
         let palavras = [];
+        let palavrasRestantes = [];
         let rodadaAtual = 1;
 
         carregarPalavras();
@@ -105,17 +107,23 @@
 
         function carregarPalavras() {
             palavras = [
+                { nome: "GUARDA-CHUVA", categoria: "Dica: Usado para se proteger da chuva." }, 
+                { nome: "AUTOESCOLA", categoria: "Dica: Lugar onde se aprende a dirigir." },
                 { nome: "MARCA-PASSO", categoria: "Dica: Dispositivo que regula os batimentos cardíacos." },
-                { nome: "OBRA-PRIMA", categoria: "Dica: Representa o auge da habilidade e criatividade de um artista." },
-                { nome: "BEM-QUERER", categoria: "Dica: Sentimento de carinho ou afeto por alguém." },
-                { nome: "PÃO-CASEIRO", categoria: "Dica: Pão feito em casa." }
+                { nome: "MICROONDAS", categoria: "Dica: Aparelho usado para aquecer alimentos." },
+                { nome: "PINGUE-PONGUE", categoria: "Dica: Esporte jogado com raquetes e bolinha pequena em mesa." }
             ];
+            palavrasRestantes = [...palavras]; // faz cópia para uso no jogo
         }
 
         function sortearNovaPalavra() {
-            const indexPalavra = Math.floor(Math.random() * palavras.length);
-            palavraSecretaSorteada = palavras[indexPalavra].nome;
-            palavraSecretaCategoria = palavras[indexPalavra].categoria;
+            if (palavrasRestantes.length === 0) return; // segurança
+
+            const indexPalavra = Math.floor(Math.random() * palavrasRestantes.length);
+            const palavraObj = palavrasRestantes.splice(indexPalavra, 1)[0]; // remove para não repetir
+
+            palavraSecretaSorteada = palavraObj.nome;
+            palavraSecretaCategoria = palavraObj.categoria;
             listaDinamica = Array(palavraSecretaSorteada.length).fill("&nbsp;");
             tentativas = 6;
 
@@ -174,11 +182,11 @@
 
         function verificarFimDeJogo() {
             if (listaDinamica.join("") === palavraSecretaSorteada) {
-                rodadaAtual++;
-                atualizarRodadas();
-                if (rodadaAtual > 4) {
+                if (rodadaAtual >= TOTAL_RODADAS) {
                     setTimeout(() => (window.location.href = "vitória.html"), 2000);
                 } else {
+                    rodadaAtual++;
+                    atualizarRodadas();
                     setTimeout(sortearNovaPalavra, 2000);
                 }
             } else if (tentativas <= 0) {
