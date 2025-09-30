@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="pt">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +7,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background-color: #6D4A73; /* Fundo roxo escuro */
+      background-color: #6D4A73;
+      width: 100vw;
+      height: 90vh;
+      margin-top: 10px;
+      background-image: url("1.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Ubuntu', sans-serif;
     }
     .title-banner {
-      background-color: #A87B5B; /* Marrom */
-      color: #C198D8; /* Texto lavanda suave */
+      background-color: #A87B5B;
+      color: #C198D8;
       font-weight: bold;
       font-size: 2rem;
       padding: 0.5rem 1rem;
@@ -22,20 +28,9 @@
       margin-top: 2rem;
       margin-bottom: 1rem;
     }
-    body{
-    width: 100vw;
-    height: 90vh;
-    margin-top: 10px;
-    background-image: url("1.png"); /* Adicione o URL da imagem aqui */
-    background-size: cover; /* A imagem cobre toda a área da tela */
-    background-position: center; /* Centraliza a imagem de fundo */
-    background-attachment: fixed; /* Mantém a imagem fixa ao rolar a página */
-    font-family: 'Ubuntu', sans-serif;
-}
-
     .tab {
-      background-color: #735840; /* Marrom escuro */
-      color: #C198D8; /* Texto lavanda suave */
+      background-color: #735840;
+      color: #C198D8;
       font-weight: bold;
       padding: 0.5rem 1rem;
       text-align: center;
@@ -43,20 +38,20 @@
       cursor: pointer;
     }
     .tab-content {
-      background-color: #A87B5B; /* Painel marrom */
-      color: #F3E5F5; /* Texto roxo claro */
+      background-color: #A87B5B;
+      color: #F3E5F5;
       font-size: 1rem;
       padding: 1rem;
       border-radius: 0 0 1rem 1rem;
       width: 100%;
-      display: none; /* Escondido por padrão */
+      display: none;
     }
     .active {
-      display: block; /* Mostrar conteúdo ativo */
+      display: block;
     }
     .button {
-      background-color: #A87B5B; /* Marrom */
-      color: #C198D8; /* Texto lavanda suave */
+      background-color: #A87B5B;
+      color: #C198D8;
       font-weight: bold;
       font-size: 1.2rem;
       padding: 0.5rem 2rem;
@@ -87,19 +82,17 @@
     <!-- Content Area -->
     <div id="regras" class="tab-content active">
       <div class="flex">
-        <!-- Witch Image -->
         <img src="IMG_9112.png" alt="Imagem da bruxa" class="witch-image mr-4">
-
         <div>
           <h2 class="font-bold mb-2" style="color: #D3B5E5;">Regras da Fase 3:</h2>
           <ul class="list-decimal pl-4">
-            <li>O objetivo é encontrar pares de palavras que têm sons iguais ou escritas iguais, mas significados diferentes.</li>
+            <li>O objetivo do jogo é encontrar pares de palavras que tenham sons iguais ou escritas iguais, mas significados diferentes (homônimos).</li>
             <li>As cartas começam viradas para baixo.</li>
-            <li>Cada jogador vira duas cartas por vez.</li>
+            <li>A cada turno, o jogador pode virar duas cartas de uma vez.</li>
             <li>Se as palavras formarem um par, o jogador fica com as cartas e joga novamente.</li>
             <li>Se não formarem um par, as cartas são viradas de volta.</li>
-            <li>O jogador tem 30 segundos para completar o jogo.</li>
-            <li>O jogador deve encontrar todos os pares para vencer no final.</li>
+            <li>O jogador tem 1 minuto para completar o jogo, ou seja, precisa encontrar todos os pares dentro desse tempo para vencer.</li>
+            <li>O jogo é dividido em 3 rodadas. Cada rodada consiste em tentar encontrar os pares de palavras durante o tempo disponível. Se o jogador encontrar todos os pares corretamente dentro das 3 rodadas, ele avança para a Fase 4.</li>
           </ul>
         </div>
       </div>
@@ -107,9 +100,7 @@
 
     <div id="aprender" class="tab-content">
       <div class="flex">
-        <!-- Witch Image -->
         <img src="IMG_9112.png" alt="Imagem da bruxa" class="witch-image mr-4">
-
         <div>
           <h2 class="font-bold mb-2" style="color: #D3B5E5;">Dicas para o Jogo de Cartas</h2>
           <p class="mb-4">Aqui estão algumas dicas para ajudá-lo a se preparar:</p>
@@ -117,20 +108,21 @@
             <li>Preste atenção nos sons das palavras. Muitos pares têm som semelhante, mas significados diferentes.</li>
             <li>Mantenha as cartas na memória e tente lembrar onde os pares estão localizados.</li>
             <li>Os pares podem ter a mesma escrita ou sons parecidos, então observe bem as palavras.</li>
-            <li>O tempo é limitado! Fique atento aos 30 segundos para encontrar todos os pares.</li>
+            <li>O tempo é limitado! Fique atento ao 1 minuto para encontrar todos os pares.</li>
           </ul>
         </div>
       </div>
     </div>
 
-  
+    <!-- Botão de Voltar -->
+    <div class="flex justify-center mt-6">
+      <a href="fase3.html" class="button">Voltar para a Fase 3</a>
+    </div>
+  </div>
 
   <script>
     function showContent(tab) {
-      // Esconder todos os conteúdos das abas
       document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-      
-      // Mostrar o conteúdo da aba selecionada
       document.getElementById(tab).classList.add('active');
     }
   </script>
