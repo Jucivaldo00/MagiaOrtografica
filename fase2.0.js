@@ -21,40 +21,26 @@ let widthValue = 0;
 const restart_quiz = result_box.querySelector(".buttons .restart");
 const quit_quiz = result_box.querySelector(".buttons .quit");
 
-// Quando o botão startQuiz for clicado
-start_btn.onclick = () => {
-    info_box.classList.add("activeInfo");
-};
-
-// Quando o botão exitQuiz for clicado
-exit_btn.onclick = () => {
-    info_box.classList.remove("activeInfo");
-};
-
-// Quando o botão continueQuiz for clicado
+start_btn.onclick = () => info_box.classList.add("activeInfo");
+exit_btn.onclick = () => info_box.classList.remove("activeInfo");
 continue_btn.onclick = () => {
     info_box.classList.remove("activeInfo");
     quiz_box.classList.add("activeQuiz");
     showQuetions(0);
     queCounter(1);
-    startTimer(15);
-    startTimerLine(0);
+    startTimer(timeValue);
+    startTimerLine(widthValue);
 };
 
-// Função para verificar condições de vitória
-function checkVictory() {
-    if (userScore === 15) {
-        // Redirecionar para a página de vitória
-        window.location.href = "vitoria_fase2.html";
-    }
-}
-
-// Função para redirecionar à derrota
 function redirectToDefeat() {
     window.location.href = "derrota1.html";
 }
 
-// Função chamada ao selecionar uma opção
+function redirectToVictory() {
+    window.location.href = "vitoria_fase2.html";
+}
+
+// Quando o usuário seleciona uma opção
 function optionSelected(answer) {
     clearInterval(counter);
     clearInterval(counterLine);
@@ -69,92 +55,57 @@ function optionSelected(answer) {
     } else {
         answer.classList.add("incorrect");
         answer.insertAdjacentHTML("beforeend", crossIconTag);
+        redirectToDefeat(); // derrota imediata
+        return;
     }
 
     for (let i = 0; i < allOptions; i++) {
         option_list.children[i].classList.add("disabled");
     }
 
-    next_btn.classList.add("show");
-
-    // Verificar condição de vitória
-    checkVictory();
+    next_btn.classList.add("show"); // Só aparece se acertou
 }
 
 function startTimer(time) {
-    counter = setInterval(timer, 1000);
-    function timer() {
-        timeCount.textContent = time;
+    counter = setInterval(() => {
+        timeCount.textContent = time < 10 ? "0" + time : time;
         time--;
-        if (time < 10) {
-            timeCount.textContent = "0" + time;
-        }
         if (time < 0) {
             clearInterval(counter);
             clearInterval(counterLine);
-
-            // Redirecionar para a página de derrota quando o tempo acabar
             redirectToDefeat();
         }
-    }
+    }, 1000);
 }
 
 function startTimerLine(time) {
-    counterLine = setInterval(timer, 29);
-    function timer() {
+    counterLine = setInterval(() => {
         time += 1;
         time_line.style.width = time + "px";
-        if (time > 549) {
-            clearInterval(counterLine);
-        }
-    }
+        if (time > 549) clearInterval(counterLine);
+    }, 29);
 }
 
 function queCounter(index) {
-    let totalQueCounTag =
-        '<span><p>' +
-        index +
-        "</p> de <p>" +
-        questions.length +
-        "</p> Questões</span>";
-    bottom_ques_counter.innerHTML = totalQueCounTag;
+    bottom_ques_counter.innerHTML =
+        '<span><p>' + index + "</p> de <p>" + questions.length + "</p> Questões</span>";
 }
 
-// Mostrar questões e opções
 function showQuetions(index) {
     const que_text = document.querySelector(".que_text");
-    let que_tag =
-        '<span>' + questions[index].numb + ". " + questions[index].question + "</span>";
-    let option_tag =
-        '<div class="option"><span>' +
-        questions[index].options[0] +
-        "</span></div>" +
-        '<div class="option"><span>' +
-        questions[index].options[1] +
-        "</span></div>";
-    que_text.innerHTML = que_tag;
-    option_list.innerHTML = option_tag;
+    que_text.innerHTML = '<span>' + questions[index].numb + ". " + questions[index].question + "</span>";
+    
+    option_list.innerHTML =
+        '<div class="option"><span>' + questions[index].options[0] + "</span></div>" +
+        '<div class="option"><span>' + questions[index].options[1] + "</span></div>";
 
     const option = option_list.querySelectorAll(".option");
-    for (let i = 0; i < option.length; i++) {
-        option[i].setAttribute("onclick", "optionSelected(this)");
-    }
+    option.forEach((opt) => opt.setAttribute("onclick", "optionSelected(this)"));
 }
 
 let tickIconTag = '<div class="icon tick"><i class="fas fa-check"></i></div>';
 let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
 
-// Mostrar o resultado
-function showResult() {
-    // Se o quiz acabar, verificar se há vitória ou derrota
-    if (userScore === 15) {
-        window.location.href = "vitória_fase2.html";
-    } else {
-        window.location.href = "derrota1.html";
-    }
-}
-
-// Se o botão restartQuiz for clicado
 restart_quiz.onclick = () => {
     quiz_box.classList.add("activeQuiz");
     result_box.classList.remove("activeResult");
@@ -170,18 +121,14 @@ restart_quiz.onclick = () => {
     startTimer(timeValue);
     startTimerLine(widthValue);
     timeText.textContent = "Tempo restante";
-    next_btn.classList.remove("show");
 };
 
-// Se o botão quitQuiz for clicado
-quit_quiz.onclick = () => {
-    window.location.reload();
-};
+quit_quiz.onclick = () => window.location.reload();
 
 const next_btn = document.querySelector("footer .next_btn");
 const bottom_ques_counter = document.querySelector("footer .total_que");
 
-// Se o botão Next Que for clicado
+// Próxima pergunta
 next_btn.onclick = () => {
     if (que_count < questions.length - 1) {
         que_count++;
@@ -195,8 +142,7 @@ next_btn.onclick = () => {
         timeText.textContent = "Tempo restante";
         next_btn.classList.remove("show");
     } else {
-        clearInterval(counter);
-        clearInterval(counterLine);
-        showResult();
+        // Última pergunta foi respondida corretamente → vitória
+        redirectToVictory();
     }
 };
