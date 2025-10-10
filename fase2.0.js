@@ -37,7 +37,7 @@ function redirectToDefeat() {
 }
 
 function redirectToVictory() {
-    window.location.href = "vitoria_fase2.html";
+    window.location.href = "vitória_fase2.html";
 }
 
 // Quando o usuário seleciona uma opção
